@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ユニクロ服おすすめAI</title>
+  <style>
+ /* style.css */
+body {
+    font-family: 'Montserrat', 'Noto Sans JP', 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
+    background: linear-gradient(120deg, #e0e7ff 0%, #fffbe7 100%);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: 48px auto 0 auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    padding: 2.5em 2.5em 2em 2.5em;
+    position: relative;
+    animation: fadein 1.2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    text-align: center;
+    color: #2d3a4b;
+    margin-bottom: 1.2em;
+    font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+    font-size: 2em;
+    letter-spacing: 0.05em;
+}
+.logo {
+    font-size: 1.3em;
+    margin-right: 0.2em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1em;
+    margin-bottom: 1.5em;
+}
+
+label {
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 0.2em;
+}
+.example {
+    color: #888;
+    font-size: 0.95em;
+    font-weight: normal;
+}
+
+input[type="text"] {
+    padding: 0.8em;
+    border: 1.5px solid #b3c6e0;
+    border-radius: 8px;
+    font-size: 1.08em;
+    background: #fafdff;
+    transition: border 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+input[type="text"]:focus {
+    border: 2px solid #0078d7;
+    outline: none;
+    box-shadow: 0 0 0 2px #c7e0ff;
+}
+
+button {
+    background: linear-gradient(90deg, #0078d7 60%, #00c6fb 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8em 0;
+    font-size: 1.08em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 2px 8px rgba(0,120,215,0.08);
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3em;
+}
+button:hover {
+    background: linear-gradient(90deg, #005fa3 60%, #00a6d7 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+.sparkle {
+    font-size: 1.2em;
+}
+
+#response {
+    margin-top: 2em;
+    padding: 1.2em;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background: #f5faff;
+    min-height: 2em;
+    color: #222;
+    font-size: 1.08em;
+    line-height: 1.7;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    word-break: break-word;
+}
+.ai-response {
+    animation: fadein 0.8s;
+}
+
+footer {
+    margin-top: 2.5em;
+    text-align: center;
+    color: #888;
+    font-size: 0.97em;
+}
+footer a {
+    color: #0078d7;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+footer a:hover {
+    color: #005fa3;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><span class="logo"></span>ユニクロ服おすすめAI</h1>
+
+    <!-- ✅ formタグのaction/methodを外す -->
+    <form id="promptForm">
+      <label for="userPrompt">どんな服が欲しいですか？<br>
+        <span class="example">（例: 夏にぴったりのカジュアルな服）</span>
+      </label>
+      <input type="text" id="userPrompt" name="userPrompt" size="40" required placeholder="ご希望の服やシーンを入力してください">
+
+      <!-- ✅ 送信用buttonは type="button" -->
+      <button type="button" id="submitBtn"><span class="sparkle">✨</span>おすすめを聞く</button>
+    </form>
+
+    <div id="response"></div>
+    <footer>
+      <small>Powered by OpenAI | <a href="https://www.uniqlo.com/jp/" target="_blank">ユニクロ公式サイト</a></small>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+      const userPrompt = document.getElementById("userPrompt").value;
+
+      const responseDiv = document.getElementById("response");
+      responseDiv.innerHTML = "診断中...";
+
+      try {
+        const res = await fetch("/medicine", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: new URLSearchParams({ userPrompt })
+        });
+
+        const resultText = await res.text();  // プレーンテキスト受信
+        console.log("🧠 Gemini診断結果:", resultText);
+        responseDiv.innerHTML = resultText;
+      } catch (error) {
+        console.error("❌ 通信エラー:", error);
+        responseDiv.innerHTML = "エラーが発生しました。";
+      }
+    });
+  </script>
+</body>
+</html>

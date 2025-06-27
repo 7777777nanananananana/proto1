@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ユニクロ服おすすめAI - 診断結果</title>
+  <style>
+    body {
+      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      background: #f2f4ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .result-box {
+      background: #ffffff;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="result-box">
+    <h1>診断結果を受け取りました！</h1>
+    <p>ブラウザのコンソールに内容が表示されています。</p>
+  </div>
+  <script>
+  const result = `{{ result_data | safe }}`;  // エスケープしないよう safe を使用
+  console.log("🧠 Gemini診断結果:", result);
+  
+</script>
+
+</body>
+</html>
