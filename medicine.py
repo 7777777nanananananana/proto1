@@ -16,7 +16,7 @@ model = genai.GenerativeModel("models/gemini-1.5-flash-latest")
 prompt = f"""
 {user_input}
 あなたはユニクロの服の専門家です。ユーザーの要望に合う具体的なユニクロ商品名と、その公式商品ページのURLを必ず1つ提案してください。
-出力例: 商品名: エアリズムコットンTシャツ　URL: https://www.uniqlo.com/jp/ja/products/E452123-000/00
+出力例: 商品名: エアリズムコットンTシャツ　URL:
 説明文や余計な文言は不要です。必ず「商品名: ... URL: ...」の形式で返してください。
 """
 
