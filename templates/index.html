@@ -8,47 +8,25 @@
 <body>
   <div class="container">
     <h1>ユニクロ服おすすめAIチャット</h1>
-    <div id="chat" class="chat-area"></div>
-    <form id="promptForm" autocomplete="off">
+    <form method="post" id="promptForm" autocomplete="off">
       <input type="text" id="userPrompt" name="userPrompt" required placeholder="ご希望の服やシーンを入力してください">
       <button type="submit">送信</button>
     </form>
+    {% if result %}
+      <div class="chat-area">
+        <div class="msg ai">
+          {{ result|safe }}
+        </div>
+        {% if image_url %}
+          <div style="margin:1em 0;text-align:center;">
+            <img src="{{ image_url }}" alt="商品画像" style="max-width:320px; border-radius:12px; box-shadow:0 2px 8px #e0e7ff;">
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
     <footer>
       <small>Powered by OpenAI | <a href="https://www.uniqlo.com/jp/" target="_blank">ユニクロ公式サイト</a></small>
     </footer>
   </div>
-  <script>
-    const chat = document.getElementById("chat");
-    const form = document.getElementById("promptForm");
-    const input = document.getElementById("userPrompt");
-
-    function addMsg(text, who) {
-      const div = document.createElement("div");
-      div.className = "msg " + who;
-      // URL自動リンク化
-      div.innerHTML = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-      chat.appendChild(div);
-      chat.scrollTop = chat.scrollHeight;
-    }
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const userText = input.value;
-      addMsg(userText, "user");
-      input.value = "";
-      addMsg("診断中...", "ai");
-      try {
-        const res = await fetch("/medicine", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({ userPrompt: userText })
-        });
-        const resultText = await res.text();
-        chat.lastChild.innerHTML = resultText.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-      } catch (error) {
-        chat.lastChild.innerHTML = "エラーが発生しました。";
-      }
-    });
-  </script>
 </body>
 </html>
