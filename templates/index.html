@@ -3,20 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>ユニクロ服おすすめAIチャット</title>
-  <style>
-    body { font-family: 'Montserrat', 'Noto Sans JP', sans-serif; background: #e0e7ff; margin: 0; }
-    .container { max-width: 500px; margin: 48px auto 0 auto; background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.10); padding: 2.5em 2.5em 2em 2.5em; }
-    .chat-area { min-height: 300px; margin-bottom: 1em; }
-    .msg { margin: 0.5em 0; }
-    .user { text-align: right; color: #0078d7; }
-    .ai { text-align: left; color: #222; }
-    .ai a { color: #0078d7; text-decoration: underline; }
-    form { display: flex; gap: 0.5em; }
-    input[type="text"] { flex: 1; padding: 0.8em; border: 1.5px solid #b3c6e0; border-radius: 8px; font-size: 1.08em; }
-    button { background: #0078d7; color: #fff; border: none; border-radius: 8px; padding: 0.8em 1.2em; font-size: 1.08em; font-weight: bold; cursor: pointer; }
-    button:hover { background: #005fa3; }
-    footer { margin-top: 2.5em; text-align: center; color: #888; font-size: 0.97em; }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
   <div class="container">
