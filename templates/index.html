@@ -22,6 +22,19 @@
             <img src="{{ image_url }}" alt="商品画像" style="max-width:320px; border-radius:12px; box-shadow:0 2px 8px #e0e7ff;">
           </div>
         {% endif %}
+        <!-- 例: チャットエリア内 -->
+        {% if tops and tops_url %}
+          <div class="msg ai">
+            <b>トップス:</b> {{ tops }}<br>
+            <a href="{{ tops_url }}" target="_blank">{{ tops_url }}</a>
+          </div>
+        {% endif %}
+        {% if bottoms and bottoms_url %}
+          <div class="msg ai">
+            <b>ボトムス:</b> {{ bottoms }}<br>
+            <a href="{{ bottoms_url }}" target="_blank">{{ bottoms_url }}</a>
+          </div>
+        {% endif %}
       </div>
     {% endif %}
     <footer>
